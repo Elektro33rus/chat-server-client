@@ -1,0 +1,37 @@
+#ifndef myhash2
+#define myhash2
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <ws2tcpip.h>
+#include <fstream>
+#include <windows.h>
+
+
+void how2timer(int ms) {
+	int CLOCKS_PER_MSEC = CLOCKS_PER_SEC / 1000;   /// новая константа 
+	clock_t end_time = clock() + ms * CLOCKS_PER_MSEC;  // время завершения 
+	while (clock() < end_time) {}  // цикл ожидания времени 
+}
+
+std::string gett(){
+	std::string ger="";
+	std::ifstream file("settings\\pass.ini");
+	getline(file, ger);
+	return ger;
+}
+
+
+double nowtime() {
+	double t = 0;
+	SYSTEMTIME sm;
+	GetLocalTime(&sm);
+	t = sm.wMilliseconds + sm.wSecond*1000+sm.wMinute*60000+sm.wHour*3600000;
+	return t;
+}
+
+int fortime(double t0) {
+	return (nowtime() - t0);
+}
+
+#endif

@@ -1,0 +1,176 @@
+#ifndef myhash1
+#define myhash1
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <ctime>
+#include <math.h>
+
+
+
+boolean checkHASH(size_t dolshen, size_t kotoriivvel){
+	boolean check=false;
+	if (dolshen==kotoriivvel)
+		check=true;
+	return check;
+}
+
+
+boolean checkHASHserver(size_t dolshen, size_t kotoriivvel){
+	boolean check=false;
+	if (dolshen==kotoriivvel)
+		check=true; 
+	return check;
+}
+
+
+int randomi(){
+	int r=0;
+	r=std::rand()%93+33;
+	return r;
+}
+
+int randomi2(){
+	int r=0;
+	r=std::rand()%20;
+	return r;
+}
+
+
+int perre(int rqwsz){
+	int ses=rqwsz%20;
+	int mas[]={3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73}; //20
+	return mas[ses];
+}
+
+
+int getHASHpass(std::string pass){
+	const char * massivHASH = pass.c_str();
+	int resultHASH=0;
+	for (int j = 0; j < strlen(massivHASH); j++){
+			resultHASH=resultHASH+((int)massivHASH[j]*perre(j));
+	}
+	return resultHASH;
+}
+
+
+int getHASHpassserver(std::string pass){
+	const char * massivHASH = pass.c_str();
+	int resultHASH=0;
+	for (int j = 0; j < strlen(massivHASH); j++){
+			resultHASH=resultHASH+((int)massivHASH[j]*perre(j));
+	}
+	return resultHASH;
+}
+
+
+int gettingHASHserver(std::string ip,std::string port){
+	//std::string secrHASH="P9u6Rhb7Dvc67pZQ"; //16
+	std::string all="";
+	all=ip+port;
+	all=all+ip;
+	const char * massivHASH = all.c_str();
+	//const char * massivHASH2 = secrHASH.c_str();
+	int resultHASH=0;
+	resultHASH+=36584;
+	for (int j = 0; j < strlen(massivHASH); j++){
+			resultHASH=resultHASH+((int)massivHASH[j]*perre(j));
+	}
+	//int rre=resultHASH;
+	
+	//for (int j = 0; j < strlen(massivHASH2); j++){
+	//		resultHASH=resultHASH+((int)massivHASH2[j]*perre(j));
+	//}
+	//std::cout<<resultHASH-rre<<"\n";
+	return resultHASH;
+}
+
+
+std::string gettingPASSserver(std::string ip, std::string port){
+	std::string forPASS="";
+	int resultHASH1=gettingHASHserver(ip, port);
+	int resultHASH2=0;
+	boolean br=true;
+	srand(time(0));
+	int j=0;
+	while (br==true){
+		//std::cout<<forPASS<<" This is Server\n";
+		forPASS="";
+		resultHASH2=0;
+		br=false;
+		j=-1;
+		while (true){
+			int s=randomi();
+			j=j+1;
+			forPASS=forPASS+((char) s);
+			resultHASH2=resultHASH2+((int)((char) s)*perre(j));
+			if (resultHASH1==resultHASH2){
+				std::cout<<resultHASH2<<"\n";
+				std::cout<<forPASS<<" This is Server\n";
+				break;
+			}
+			if (resultHASH2>resultHASH1){
+				br=true;
+				break;
+				}
+			}
+	}
+	return forPASS;
+}
+
+
+int gettingHASH(std::string nick){
+	//std::string secrHASH="Ju36IOszf4pppqLL42mv"; //20
+	//63861
+	std::string forNICK="";
+	forNICK=nick+nick;
+	
+	const char * massivHASH = forNICK.c_str();
+	//const char * massivHASH2 = secrHASH.c_str();
+	int resultHASH=20093;
+	for (int j = 0; j < strlen(massivHASH); j++){
+			resultHASH=resultHASH+((int)massivHASH[j]*perre(j));
+	}
+	//int rs=resultHASH;
+	//for (int j = 0; j < strlen(massivHASH2); j++){
+	//		resultHASH=resultHASH+((int)massivHASH2[j]*perre(j));
+	//}
+	//rs=resultHASH-rs;
+	//std::cout << rs<<"\n" ;
+	//system("pause");
+	resultHASH=resultHASH+43768;
+	return resultHASH;
+}
+
+
+std::string gettingPASS(std::string nick){
+	std::string forPASS="";
+	int resultHASH1=gettingHASH(nick);
+	int resultHASH2=0;
+	boolean br=true;
+	srand(time(0));
+	int j=0;
+	while (br==true){
+		j=-1;
+		forPASS="";
+		resultHASH2=0;
+		br=false;
+		while (true){
+			int s=randomi();
+			forPASS=forPASS+((char) s);
+			j=j+1;
+			resultHASH2=resultHASH2+((int)((char) s)*perre(j));
+			if (resultHASH1==resultHASH2){
+				std::cout<<resultHASH2<<"\n";
+				std::cout<<forPASS<<" this is LOGIN\n";
+				break;
+			}
+			if (resultHASH2>resultHASH1){
+				br=true;
+				break;
+				}
+			}
+	}
+	return forPASS;
+}
+#endif
